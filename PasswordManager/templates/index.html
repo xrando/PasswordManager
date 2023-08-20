@@ -1,0 +1,64 @@
+{% extends "_base.html" %}
+
+{% block content %}
+
+<div class="p-6">
+    <h1 class="text-2xl font-semibold mb-4">View All Entries</h1>
+
+    <div class="space-y-4">
+        {% if entries %}
+        <div class="relative overflow-x-auto">
+            <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                <tr>
+                    <th scope="col" class="px-6 py-3">
+                        URL
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        Username
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        Password
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        Note
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        Actions
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for entry in entries %}
+                <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                        {{ entry.url }}
+                    </th>
+                    <td class="px-6 py-4">
+                        {{ entry.username }}
+                    </td>
+                    <td class="px-6 py-4">
+                        {{ entry.password }}
+                    </td>
+                    <td class="px-6 py-4">
+                        {{ entry.note }}
+                    </td>
+                    <td class="px-6 py-4">
+                        <div class="flex space-x-2">
+                            <a href="{% url 'view' entry.id %}" class="btn btn-primary">View</a>
+                            <a href="{% url 'edit' entry.id %}" class="btn btn-secondary">Edit</a>
+                            <a href="{% url 'delete' entry.id %}" class="btn btn-danger">Delete</a>
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+                {% else %}
+                <p class="text-gray-600">No entries found.</p>
+                {% endif %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}
